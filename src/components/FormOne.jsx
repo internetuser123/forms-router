@@ -25,7 +25,7 @@ const FormOne = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder='First Name...' {...register("fullName")} />
+        <input type="text" placeholder='First Name...' {...register("firstName")} />
         <input type="text" placeholder='Last Name...' {...register("lastName")} />
         <input type="text" placeholder='Email...'{...register("email")}/>
         <input type="number" placeholder='Phone...' {...register("phone")}/>
