@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import styles from './FormOne.module.css'
 
 
 const FormOne = () => {
@@ -24,13 +25,18 @@ const FormOne = () => {
     }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder='First Name...' {...register("firstName")} />
-        <input type="text" placeholder='Last Name...' {...register("lastName")} />
-        <input type="text" placeholder='Email...'{...register("email")}/>
-        <input type="number" placeholder='Phone...' {...register("phone")}/>
-        <button type='submit'>submit</button>
-    </form>
+    <div  className={styles.container}>
+      <div className={styles.formContainer}>
+          <p>Enter your information here:</p>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <input className={styles.input} type="text" placeholder='First Name...' {...register("firstName")} />
+            <input className={styles.input} type="text" placeholder='Last Name...' {...register("lastName")} />
+            <input className={styles.input} type="text" placeholder='Email...'{...register("email")}/>
+            <input className={styles.input} type="number" placeholder='Phone...' {...register("phone")}/>
+            <button className={styles.button} type='submit'>submit</button>
+        </form>
+      </div>
+    </div>
   )
 }
 
