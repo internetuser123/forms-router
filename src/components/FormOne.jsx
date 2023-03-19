@@ -3,9 +3,14 @@ import { useForm } from "react-hook-form"
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import styles from './FormOne.module.css'
+import { useNavigate} from 'react-router-dom'
+
+
 
 
 const FormOne = () => {
+
+  const navigate = useNavigate()
 
   const schema = yup.object().shape({
     firstName: yup.string(),
@@ -33,7 +38,7 @@ const FormOne = () => {
             <input className={styles.input} type="text" placeholder='Last Name...' {...register("lastName")} />
             <input className={styles.input} type="text" placeholder='Email...'{...register("email")}/>
             <input className={styles.input} type="number" placeholder='Phone...' {...register("phone")}/>
-            <button className={styles.button} type='submit'>submit</button>
+            <button className={styles.button} type='submit' onClick={() => navigate("/formTwo")} >Submit</button>
         </form>
       </div>
     </div>
