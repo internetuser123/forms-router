@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import styles from './FormOne.module.css'
 import { useNavigate} from 'react-router-dom'
 import { FormContext } from '../App'
+import { Input, Button, Box } from '@chakra-ui/react'
 
 
 
@@ -20,7 +21,7 @@ const FormOne = () => {
     firstName: yup.string().required("* Your name is required"),
     lastName: yup.string().required("* Your last name is required"),
     email: yup.string().email().required("* Your email is required"),
-    phone: yup.number().test('len', "* Your number needs to have 10 digits", val => val.toString().length === 10)
+    phone: yup.number().test('len', "* Your number needs to have 10 digits", val => val.toString().length === 10).typeError("* Your number needs to have 10 digits")
   })
 
     const {register, handleSubmit, formState: {errors} } = useForm({
@@ -35,22 +36,22 @@ const FormOne = () => {
     }
 
   return (
-    <div  className={styles.container}>
-      <div className={styles.formContainer}>
-          <p>Enter your information here:</p>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <input className={styles.input} type="text" placeholder='First Name...' {...register("firstName")} />
+    <Box width="100vw" height='100vh' display='flex' justifyContent='center' alignItems='center'>
+      <Box display='flex' flexDirection='column' alignItems='center' backgroundColor='blackAlpha.100' border='1px' borderColor='black' width='500px' height='500px' borderRadius='1rem'>
+          <h1>Enter your information here:</h1>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>          
+            <Input placeholder="First Name..." m="0.5rem" type="text" backgroundColor='white'  {...register("firstName")} />
             <p className={styles.error}>{errors.firstName?.message}</p>
-            <input className={styles.input} type="text" placeholder='Last Name...' {...register("lastName")} />
+            <Input placeholder="Last Name..." m="0.5rem" type="text" backgroundColor='white' {...register("lastName")} />
             <p className={styles.error}>{errors.lastName?.message}</p>
-            <input className={styles.input} type="text" placeholder='Email...'{...register("email")}/>
+            <Input className={styles.input} m="0.5rem" type="text" backgroundColor='white' placeholder='Email...'{...register("email")}/>
             <p className={styles.error}>{errors.email?.message}</p>
-            <input className={styles.input} type="number" placeholder='Phone...' {...register("phone")}/>
+            <Input className={styles.input} m="0.5rem" type="number" backgroundColor='white' placeholder='Phone...' {...register("phone")}/>
             <p className={styles.error}>{errors.phone?.message}</p>
-            <button className={styles.button} type='submit' >Submit</button>
+            <Button colorScheme='teal' m="0.5rem" type='submit' marginTop='auto' >Submit</Button>
         </form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

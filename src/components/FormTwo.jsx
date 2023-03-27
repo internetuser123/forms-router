@@ -6,6 +6,7 @@ import styles from './FormTwo.module.css'
 import { useNavigate} from 'react-router-dom'
 import { FormContext } from '../App'
 import { useContext } from 'react'
+import { Input, Button, Box, Checkbox } from '@chakra-ui/react'
 
 
 const FormTwo = () => {
@@ -17,7 +18,7 @@ const FormTwo = () => {
 
   const schema = yup.object().shape({
     adress: yup.string().required("* Adress is required"),
-    zipcode: yup.number().test('len,', '* Must be exactly 5 digits', val => val.toString().length === 5),
+    zipcode: yup.number().test('len,', '* Must be exactly 5 digits', val => val.toString().length === 5).typeError("* Must be exactly 5 digits"),
     city: yup.string().required("* City is required"),
     terms: yup.boolean().oneOf([true], "* You need to accept the terms and conditions"),
     
@@ -30,28 +31,28 @@ const FormTwo = () => {
     
 
     const onSubmit = (data) => {
-      console.log("formdata", formData)
-      setFormData({...data, formData})
+      const {firstName, lastName, email, phone} = formData
+      setFormData({...data, firstName, lastName, email, phone})
       navigate("/result")
     }
 
   return (
-    <div  className={styles.container}>
-      <div className={styles.formContainer}>
-          <p>Enter your information here:</p>
+    <Box width="100vw" height='100vh' display='flex' justifyContent='center' alignItems='center'>
+      <Box display='flex' flexDirection='column' alignItems='center' backgroundColor='blackAlpha.100' border='1px' borderColor='black' width='500px' height='500px' borderRadius='1rem'>
+          <h1>Enter your information here:</h1>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <input className={styles.input} type="text" placeholder='Adress...' {...register("adress")} />
+            <Input m="0.5rem" type="text" backgroundColor='white' placeholder='Adress...' {...register("adress")} />
             <p className={styles.error}>{errors.adress?.message}</p>
-            <input className={styles.input} type="text" placeholder='Zipcode' {...register("zipcode")} />
+            <Input m="0.5rem" type="text" backgroundColor='white' placeholder='Zipcode' {...register("zipcode")} />
             <p className={styles.error}>{errors.zipcode?.message}</p>
-            <input className={styles.input} type="text" placeholder='City'{...register("city")}/>
+            <Input m="0.5rem" type="text" backgroundColor='white' placeholder='City'{...register("city")}/>
             <p className={styles.error}>{errors.city?.message}</p>
-            <p>I accept the terms and conditions <input type="checkbox" {...register("terms")}/></p>
+            <p>I accept the terms and conditions <Checkbox m="0.5rem" backgroundColor='white' type="checkbox" {...register("terms")}/></p>
             <p className={styles.error}>{errors.terms?.message}</p>
-            <button className={styles.button} type='submit'>Submit</button>
+            <Button colorScheme='teal' m="0.5rem" type='submit' marginTop='auto'>Submit</Button>
         </form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
